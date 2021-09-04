@@ -1,5 +1,4 @@
 from django.db import models
-from django.template.defaultfilters import slugify
 from ckeditor.fields import RichTextField
 from django.contrib.auth.models import User
 
@@ -30,6 +29,7 @@ class Article(models.Model):
     type = models.ForeignKey(Type, on_delete=models.PROTECT)
     category = models.ForeignKey(Category, on_delete=models.PROTECT)
     pubdate = models.DateTimeField(auto_now_add=True)
+    updated = models.DateTimeField(auto_now=True)
     views = models.IntegerField(default=0)
 
     class Meta:

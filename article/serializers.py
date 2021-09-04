@@ -8,7 +8,7 @@ class ArtSerialiser(serializers.ModelSerializer):
     class Meta:
         model = Article
         fields = (
-            'author', 'title', 'text', 'type', 'category', 'pubdate', 'views',
+            'author', 'title', 'text', 'type', 'category', 'pubdate', 'updated', 'views',
         )
 
 # class UserSerializer(serializers.HyperlinkedModelSerializer):
