@@ -23,6 +23,7 @@ class Image(models.Model):
 
 
 class Article(models.Model):
+    author = models.ForeignKey(User, on_delete=models.CASCADE)
     title = models.CharField(max_length=255)
     slug = models.SlugField(allow_unicode=True)
     text = RichTextField(blank=True, null=True)
