@@ -44,7 +44,5 @@ class ArtView(viewsets.ModelViewSet):
     serializer_class = ArtSerialiser
     queryset = Article.objects.all()
 
-class UserView(viewsets.ModelViewSet):
-    serializer_class = ArtSerialiser
-    queryset = Article.objects.all()
+
 
