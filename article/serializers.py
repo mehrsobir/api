@@ -1,11 +1,18 @@
 from rest_framework import serializers
 from .models import Article
+from django.contrib.auth.models import User
 
 
-class artserialiser(serializers.ModelSerializer):
+class ArtSerialiser(serializers.ModelSerializer):
 
     class Meta:
         model = Article
         fields = (
             'title', 'type', 'category', 'pubdate', 'views',
         )
+
+class UserSerializer(serializers.HyperlinkedModelSerializer):
+    class Meta:
+        model = User
+        fields = ['url', 'username', 'email', 'is_staff']
+

@@ -1,6 +1,7 @@
 from django.db import models
 from django.template.defaultfilters import slugify
 from ckeditor.fields import RichTextField
+from django.contrib.auth.models import User
 
 class Type(models.Model):
     type = models.CharField(max_length=240, verbose_name='Шакл')
@@ -25,12 +26,10 @@ class Article(models.Model):
     title = models.CharField(max_length=255)
     slug = models.SlugField(allow_unicode=True)
     text = RichTextField(blank=True, null=True)
-    # text = models.TextField(blank=True, null=True)
     type = models.ForeignKey(Type, on_delete=models.PROTECT)
     category = models.ForeignKey(Category, on_delete=models.PROTECT)
     pubdate = models.DateTimeField(auto_now_add=True)
     views = models.IntegerField(default=0)
-    image = models.ImageField(upload_to='article')
 
     class Meta:
         ordering = ['-pubdate']
