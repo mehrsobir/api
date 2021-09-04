@@ -1,12 +1,18 @@
 from django.contrib import messages
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.db.models import Q
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse
 from django.views.generic import ListView, DetailView
 from .models import Article, Comment, Image
 from .forms import CommentForm
 import random
+from rest_framework import status
+from django.http import HttpResponse
+from rest_framework.views import APIView
+from rest_framework.response import Response
+from .serializers import artserialiser
+
 
 
 def search(request):
@@ -32,11 +38,15 @@ def author(request):
     return render(request, 'author.html', {})
 
 
-class ArtListView(ListView):
-    model = Article
-    template_name = 'index.html'
-    context_object_name = 'context'
-    paginate_by = 7
+class ArtListView(APIView):
+
+    def get(self, request):
+        art = Article.objects.all()
+        serializer = artserialiser(art, many=True)
+        return Response(serializer.data)
+
+    def post(self):
+        pass
 
 
 class ArtDetailView(DetailView):
