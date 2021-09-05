@@ -140,9 +140,10 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-# CORS_ALLOWED_ORIGIN_REGEXES = [
-#     'http://localhost:3000',
-# ]
+#Whitelisting React port
+CORS_ORIGIN_WHITELIST = (
+    'http://localhost:3000',
+)
 LOGIN_REDIRECT_URL = '/'
 
 REST_FRAMEWORK = {
