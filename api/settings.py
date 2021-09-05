@@ -143,3 +143,4 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 # CORS_ALLOWED_ORIGIN_REGEXES = [
 #     'http://localhost:3000',
 # ]
+LOGIN_REDIRECT_URL = '/'
