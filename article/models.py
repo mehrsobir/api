@@ -16,11 +16,6 @@ class Category(models.Model):
         return self.category
 
 
-class Image(models.Model):
-    image = models.ImageField(upload_to='image',  verbose_name='Расм')
-    loaded_on = models.DateTimeField(auto_now_add=True)
-
-
 class Article(models.Model):
     author = models.ForeignKey(User, on_delete=models.CASCADE)
     title = models.CharField(max_length=255)

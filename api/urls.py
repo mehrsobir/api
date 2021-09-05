@@ -8,13 +8,14 @@ from rest_framework import routers
 
 router = routers.DefaultRouter()
 router.register('articles', views.ArtView, 'article')
-# router2 = routers.DefaultRouter
-router.register('profiles', u_view.UserView, 'profile')
+router.register('profiles', u_view.ProfileView, 'profile')
+router.register('users', u_view.UserView, 'user')
+router.register('types', views.TypeView, 'type')
+router.register('cats', views.CatView, 'cat')
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include(router.urls)),
-    path('profile/', include(router.urls)),
 ]
 
 urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
