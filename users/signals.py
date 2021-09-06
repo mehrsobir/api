@@ -1,4 +1,6 @@
-from django.db.models.signals import post_save
+import os
+
+from django.db.models.signals import post_save, pre_save
 from django.contrib.auth.models import User
 from django.dispatch import receiver
 from .models import Profile
@@ -13,3 +15,24 @@ def create_profile(sender, instance, created, **kwargs):
 @receiver(post_save, sender=User)
 def save_profile(sender, instance, **kwargs):
     instance.profile.save()
+
+
+@receiver(pre_save, sender=Profile)
+def auto_delete_file_on_change(sender, instance, **kwargs):
+    """Deletes file from filesystem
+    when corresponding `MediaFile` object is changed.
+    """
+    if not instance.pk:
+        return False
+
+    try:
+        old_file = Profile.objects.get(pk=instance.pk).image
+    except Profile.DoesNotExist:
+        return False
+
+    try:
+        if os.path.isfile(old_file.path):
+            os.remove(old_file.path)
+    except Exception:
+        return False
+
