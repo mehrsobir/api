@@ -8,17 +8,18 @@ class Profile(models.Model):
     affiliation = models.CharField(max_length=150, null=True, blank=True)
     address = models.CharField(max_length=120, null=True, blank=True)
     phone = models.CharField(max_length=15, null=True, blank=True)
-    image = models.ImageField(default='d.jpg', upload_to='profile_pic')
+    image = models.ImageField(upload_to='profile_pic', blank=True, null=True)
 
     def __str__(self):
         return self.user.username
 
-    def save(self):
-        super().save()
-        img = Image.open(self.image.path)
-        if img.height > 300 or img.width > 300:
-            outsize = (300, 300)
-            img.thumbnail(outsize)
-            img.save(self.image.path)
+    def save(self, *args, **kwargs):
+        super().save(*args, **kwargs)
+        if self.image:
+            img = Image.open(self.image.path)
+            if img.height > 300 or img.width > 300:
+                outsize = (300, 300)
+                img.thumbnail(outsize)
+                img.save(self.image.path)
 
 
