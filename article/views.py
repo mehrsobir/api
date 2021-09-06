@@ -1,16 +1,5 @@
-from django.contrib import messages
-from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
-from django.db.models import Q
-from django.shortcuts import render, redirect, get_object_or_404
-from django.urls import reverse
-from django.views.generic import ListView, DetailView
 from .models import Article, Category, Type
-from .forms import CommentForm
-import random
-from rest_framework import status, viewsets
-from django.http import HttpResponse
-from rest_framework.views import APIView
-from rest_framework.response import Response
+from rest_framework import viewsets
 from .serializers import ArtSerialiser, CatSerialiser, TypeSerialiser
 
 
