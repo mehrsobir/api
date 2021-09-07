@@ -7,15 +7,18 @@ class UserSerialiser(serializers.ModelSerializer):
 
     class Meta:
         model = User
-        fields = '__all__'
-            # 'username', 'first name', 'last name', 'email address',
-        # )
+        # fields = '__all__'
+        fields = ('username', 'first name', 'last name', 'email address',)
 
 
 class ProfileSerialiser(serializers.ModelSerializer):
-
+    username = serializers.SerializerMethodField('get_username')
     class Meta:
         model = Profile
-        fields = '__all__'
-            # 'user', 'affiliation', 'address', 'phone', 'image',
-        # )
+        # fields = '__all__'
+        fields = ('username', 'affiliation', 'address', 'phone', 'image',)
+
+    def get_username(self, profile):
+        username = profile.user.username
+        return username
+

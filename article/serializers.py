@@ -4,13 +4,27 @@ from django.contrib.auth.models import User
 
 
 class ArtSerialiser(serializers.ModelSerializer):
+    type = serializers.SerializerMethodField('get_type')
+    author = serializers.SerializerMethodField('get_author')
+    category = serializers.SerializerMethodField('get_category')
 
     class Meta:
         model = Article
         # fields = '__all__'
-            # 'author', 'annotation', 'title', 'text', 'source', 'type', 'category', 'pubdate', 'updated', 'views',
-        # )
-        exclude = ['slug']
+        fields = ('author', 'annotation', 'title', 'text', 'source', 'type', 'category', 'pubdate', 'updated', 'views',)
+        # exclude = ['slug']
+
+    def get_author(self, article):
+        username = article.author.username
+        return username
+
+    def get_type(self, article):
+        type = article.type.type
+        return type
+
+    def get_category(self, article):
+        type = article.category.category
+        return type
 
 class CatSerialiser(serializers.ModelSerializer):
 
