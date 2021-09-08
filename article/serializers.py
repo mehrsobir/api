@@ -26,20 +26,20 @@ class ArtSerialiser(serializers.ModelSerializer):
         type = article.category.category
         return type
 
-class CatSerialiser(serializers.ModelSerializer):
-
-    class Meta:
-        model = Category
-        fields = '__all__'
-            # 'category',
-        # )
-
-
-class TypeSerialiser(serializers.ModelSerializer):
-
-    class Meta:
-        model = Type
-        fields = '__all__'
+# class CatSerialiser(serializers.ModelSerializer):
+#
+#     class Meta:
+#         model = Category
+#         fields = '__all__'
+#             # 'category',
+#         # )
+#
+#
+# class TypeSerialiser(serializers.ModelSerializer):
+#
+#     class Meta:
+#         model = Type
+#         fields = '__all__'
             # 'type',
         # )
 
