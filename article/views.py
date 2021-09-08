@@ -4,12 +4,14 @@ from rest_framework.filters import SearchFilter, OrderingFilter
 from .serializers import ArtSerialiser
 
 
-class PostList(generics.ListCreateAPIView):
+class ArticleList(generics.ListCreateAPIView):
     queryset = Article.objects.all()
     serializer_class = ArtSerialiser
+    filter_backends = (SearchFilter, OrderingFilter,)
+    search_fields = ('title', 'text', 'author__username')
 
 
-class PostDetail(generics.RetrieveDestroyAPIView):
+class ArticleDetail(generics.RetrieveDestroyAPIView):
     queryset = Article.objects.all()
     serializer_class = ArtSerialiser
 
