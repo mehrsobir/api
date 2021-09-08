@@ -26,13 +26,15 @@ def auto_delete_file_on_change(sender, instance, **kwargs):
         return False
 
     try:
+        print(instance.image)
         old_file = Profile.objects.get(pk=instance.pk).image
     except Profile.DoesNotExist:
         return False
 
     try:
-        if os.path.isfile(old_file.path):
-            os.remove(old_file.path)
+        if instance.image != old_file:
+            if os.path.isfile(old_file.path):
+                os.remove(old_file.path)
     except Exception:
         return False
 
