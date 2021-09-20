@@ -1,7 +1,7 @@
 from django.db import models
 from django.utils import timezone
 from ckeditor.fields import RichTextField
-from django.contrib.auth.models import User
+from django.conf import settings
 
 
 class Type(models.Model):
@@ -27,7 +27,7 @@ class Article(models.Model):
         ('draft', 'Draft'),
         ('published', 'Published'),
     )
-    author = models.ForeignKey(User, on_delete=models.PROTECT)
+    author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.PROTECT)
     title = models.CharField(max_length=255)
     slug = models.SlugField(allow_unicode=True)
     annotation = RichTextField(blank=True, null=True)
