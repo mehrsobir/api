@@ -15,7 +15,7 @@ class ArtSerialiser(serializers.ModelSerializer):
         # exclude = ['slug']
 
     def get_author(self, article):
-        username = article.author.username
+        username = article.author.user_name
         return username
 
     def get_type(self, article):
