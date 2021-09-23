@@ -3,7 +3,7 @@ pip install djangorestframework
 pip install django-ckeditor
 pip install django-cors-headers
 pip install djangorestframework-simplejwt
-
+pip install django-filter
 
 
 django-admin startproject <???> .

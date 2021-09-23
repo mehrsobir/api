@@ -16,19 +16,29 @@ class ArticlePermission(BasePermission):
         return obj.author == request.user
 
 
-class ArticleList(viewsets.ModelViewSet):
+class ArticleList(generics.ListAPIView):
     permission_classes = [IsAuthenticated]
     serializer_class = ArtSerialiser
+    queryset = Article.objects.all()
+#
+#     def get_object(self, queryset=None, **kwargs):
+#         item = self.kwargs.get('pk')
+#         return get_object_or_404(Article, slug=item)
+#
+#     # Define Custom Queryset
+#     def get_queryset(self):
+#         # return Article.objects.all()
+#         user = self.request.user
+#         return Article.objects.filter(author=user)
 
-    def get_object(self, queryset=None, **kwargs):
-        item = self.kwargs.get('pk')
-        return get_object_or_404(Article, slug=item)
+class PostListDetailfilter(generics.ListAPIView):
 
-    # Define Custom Queryset
-    def get_queryset(self):
-        return Article.objects.all()
-
-
+    queryset = Article.objects.all()
+    serializer_class = ArtSerialiser
+    filter_backends = [filters.SearchFilter]
+    # '^' Starts-with search.
+    # '=' Exact matches.
+    search_fields = ['^slug']
 
 # class ArticleList(viewsets.ViewSet):
 #     permission_classes = [AllowAny]
@@ -53,10 +63,13 @@ class ArticleList(viewsets.ModelViewSet):
 #     search_fields = ('title', 'text', 'author__username')
 #
 #
-# class ArticleDetail(generics.RetrieveUpdateDestroyAPIView, ArticlePermission):
-#     permission_classes = [ArticlePermission]
-#     queryset = Article.objects.all()
-#     serializer_class = ArtSerialiser
+class ArticleDetail(generics.RetrieveAPIView):
+
+    serializer_class = ArtSerialiser
+
+    def get_object(self, queryset=None, **kwargs):
+        item = self.kwargs.get('slug')
+        return get_object_or_404(Article, slug=item)
 
 
 
