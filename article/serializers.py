@@ -11,7 +11,7 @@ class ArtSerialiser(serializers.ModelSerializer):
     class Meta:
         model = Article
         # fields = '__all__'
-        fields = ('author', 'annotation', 'title', 'slug', 'text', 'source', 'type', 'category', 'pubdate', 'updated', 'views',)
+        fields = ('id', 'author', 'annotation', 'title', 'slug', 'text', 'source', 'type', 'category', 'pubdate', 'updated', 'views',)
         # exclude = ['slug']
 
     def get_author(self, article):
