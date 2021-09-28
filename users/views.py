@@ -1,19 +1,3 @@
-# from django.shortcuts import render
-# from django.contrib.auth.models import User
-# # from .models import Profile
-# from rest_framework import status, viewsets
-# from .serializers import UserSerialiser, ProfileSerialiser
-#
-#
-# class UserView(viewsets.ModelViewSet):
-#     serializer_class = UserSerialiser
-#     queryset = User.objects.all()
-#
-#
-# class ProfileView(viewsets.ModelViewSet):
-#     serializer_class = ProfileSerialiser
-#     queryset = Profile.objects.all()
-from rest_framework_simplejwt.views import TokenObtainPairView
 from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.views import APIView
@@ -24,7 +8,7 @@ from rest_framework.permissions import AllowAny
 
 class CustomUserCreate(APIView):
     permission_classes = [AllowAny]
-
+    serializer_class = CustomUserSerializer
     def post(self, request, format='json'):
         serializer = CustomUserSerializer(data=request.data)
         if serializer.is_valid():

@@ -8,7 +8,7 @@ admin.site.register(Type)
 
 @admin.register(Article)
 class ArtAdmin(admin.ModelAdmin):
-    list_display = ('title', 'type', 'category', 'pubdate', 'updated', 'views')
-    list_filter = ['category', 'type', 'pubdate']
+    list_display = ('author', 'title', 'type', 'category', 'pubdate')
+    list_filter = ['author', 'category', 'type', 'pubdate']
     prepopulated_fields = {'slug': ('title',)}
 

@@ -11,12 +11,12 @@ app_name = 'api'
 
 
 urlpatterns = [
-    path('posts/', ArticleList.as_view(), name='listcreate'),
-    path('posts/<str:slug>/', ArticleDetail.as_view(), name='detailcreate'),
-    path('search/', PostListDetailfilter.as_view(), name='searchpost'),
+    path('', ArticleList.as_view(), name='listpost'),
+    path('article/<int:pk>/', ArticleDetail.as_view(), name='detailarticle'),
+    path('search/', PostListDetailfilter.as_view(), name='searcharticle'),
     # Post Admin URLs
-    path('admin/create/', CreatePost.as_view(), name='createpost'),
-    path('admin/edit/postdetail/<int:pk>/', AdminPostDetail.as_view(), name='admindetailpost'),
-    path('admin/edit/<int:pk>/', EditPost.as_view(), name='editpost'),
-    path('admin/delete/<int:pk>/', DeletePost.as_view(), name='deletepost'),
+    path('admi/create/', CreatePost.as_view(), name='createpost'),
+    path('admi/edit/postdetail/<int:pk>/', AdminPostDetail.as_view(), name='admindetailpost'),
+    path('admi/edit/<int:pk>/', EditPost.as_view(), name='editpost'),
+    path('admi/delete/<int:pk>/', DeletePost.as_view(), name='deletepost'),
 ]

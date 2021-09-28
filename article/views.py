@@ -1,72 +1,77 @@
-from .models import Article, Category, Type
-from rest_framework import viewsets, filters, generics, permissions
-from rest_framework.filters import SearchFilter, OrderingFilter
-from .serializers import ArtSerialiser
-from rest_framework.permissions import AllowAny, SAFE_METHODS, BasePermission, IsAuthenticated
 from django.shortcuts import get_object_or_404
+from .models import Article
+from .serializers import ArtSerialiser
+from rest_framework import generics, status
+from rest_framework.response import Response
+from rest_framework.views import APIView
+from rest_framework.permissions import AllowAny, SAFE_METHODS, BasePermission, IsAuthenticated
+from rest_framework.filters import SearchFilter
 
-class ArticlePermission(BasePermission):
-    message = "Editing restricted"
 
-    def has_object_permission(self, request, view, obj):
-        if request.method in SAFE_METHODS:
-            return True
-        return obj.author == request.user
 
 
 class ArticleList(generics.ListAPIView):
     permission_classes = [IsAuthenticated]
     serializer_class = ArtSerialiser
     queryset = Article.objects.all()
-#
-#     def get_object(self, queryset=None, **kwargs):
-#         item = self.kwargs.get('pk')
-#         return get_object_or_404(Article, slug=item)
-#
-#     # Define Custom Queryset
-#     def get_queryset(self):
-#         # return Article.objects.all()
-#         user = self.request.user
-#         return Article.objects.filter(author=user)
-
-class PostListDetailfilter(generics.ListAPIView):
-
-    queryset = Article.objects.all()
-    serializer_class = ArtSerialiser
-    filter_backends = (filters.SearchFilter,)
-    # '^' Starts-with search.
-    # '=' Exact matches.
-    search_fields = ['^slug']
 
 
 class ArticleDetail(generics.RetrieveAPIView):
-
+    permission_classes = [IsAuthenticated]
     serializer_class = ArtSerialiser
 
     def get_object(self, queryset=None, **kwargs):
-        item = self.kwargs.get('slug')
-        return get_object_or_404(Article, slug=item)
+        item = self.kwargs.get('pk')
+        return get_object_or_404(Article, id=item)
 
 
-class CreatePost(generics.CreateAPIView):
-    permission_classes = [permissions.IsAuthenticated]
+class PostListDetailfilter(generics.ListAPIView):
+    permission_classes = [IsAuthenticated]
     queryset = Article.objects.all()
     serializer_class = ArtSerialiser
+    filter_backends = [SearchFilter]
+    # '^' Starts-with search.
+    # '=' Exact matches.
+    search_fields = ['title', 'annotation']
+
+
+
+
+class CreatePost(APIView):
+    permission_classes = [IsAuthenticated]
+    serializer_class = ArtSerialiser
+    def post(self, request, format=None):
+        serializer = ArtSerialiser(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_200_OK)
+        else:
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
 
 class AdminPostDetail(generics.RetrieveAPIView):
-    permission_classes = [permissions.IsAuthenticated]
+    permission_classes = [IsAuthenticated]
     queryset = Article.objects.all()
     serializer_class = ArtSerialiser
 
 class EditPost(generics.UpdateAPIView):
-    permission_classes = [permissions.IsAuthenticated]
+    permission_classes = [IsAuthenticated]
     serializer_class = ArtSerialiser
     queryset = Article.objects.all()
 
 class DeletePost(generics.RetrieveDestroyAPIView):
-    permission_classes = [permissions.IsAuthenticated]
+    permission_classes = [IsAuthenticated]
     serializer_class = ArtSerialiser
     queryset = Article.objects.all()
 
 
+
+
+# class ArticlePermission(BasePermission):
+#     message = "Editing restricted"
+#
+#     def has_object_permission(self, request, view, obj):
+#         if request.method in SAFE_METHODS:
+#             return True
+#         return obj.author == request.user
 
