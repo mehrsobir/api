@@ -11,13 +11,13 @@ from rest_framework.filters import SearchFilter
 
 
 class ArticleList(generics.ListAPIView):
-    permission_classes = [IsAuthenticated]
+    permission_classes = [AllowAny]
     serializer_class = ArtSerialiser
     queryset = Article.objects.all()
 
 
 class ArticleDetail(generics.RetrieveAPIView):
-    permission_classes = [IsAuthenticated]
+    permission_classes = [AllowAny]
     serializer_class = ArtSerialiser
 
     def get_object(self, queryset=None, **kwargs):
@@ -26,7 +26,7 @@ class ArticleDetail(generics.RetrieveAPIView):
 
 
 class PostListDetailfilter(generics.ListAPIView):
-    permission_classes = [IsAuthenticated]
+    permission_classes = [AllowAny]
     queryset = Article.objects.all()
     serializer_class = ArtSerialiser
     filter_backends = [SearchFilter]
@@ -38,7 +38,7 @@ class PostListDetailfilter(generics.ListAPIView):
 
 
 class CreatePost(APIView):
-    permission_classes = [IsAuthenticated]
+    permission_classes = [AllowAny]
     serializer_class = ArtSerialiser
     def post(self, request, format=None):
         serializer = ArtSerialiser(data=request.data)
@@ -50,28 +50,22 @@ class CreatePost(APIView):
 
 
 class AdminPostDetail(generics.RetrieveAPIView):
-    permission_classes = [IsAuthenticated]
+    permission_classes = [AllowAny]
     queryset = Article.objects.all()
     serializer_class = ArtSerialiser
+
 
 class EditPost(generics.UpdateAPIView):
-    permission_classes = [IsAuthenticated]
+    permission_classes = [AllowAny]
     serializer_class = ArtSerialiser
     queryset = Article.objects.all()
+
+
+
 
 class DeletePost(generics.RetrieveDestroyAPIView):
-    permission_classes = [IsAuthenticated]
+    permission_classes = [AllowAny]
     serializer_class = ArtSerialiser
     queryset = Article.objects.all()
 
-
-
-
-# class ArticlePermission(BasePermission):
-#     message = "Editing restricted"
-#
-#     def has_object_permission(self, request, view, obj):
-#         if request.method in SAFE_METHODS:
-#             return True
-#         return obj.author == request.user
-
+    
