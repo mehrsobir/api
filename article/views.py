@@ -26,7 +26,7 @@ class ArticleDetail(generics.RetrieveAPIView):
 
 
 class PostListDetailfilter(generics.ListAPIView):
-    permission_classes = [AllowAny]
+    permission_classes = [IsAuthenticated]
     queryset = Article.objects.all()
     serializer_class = ArtSerialiser
     filter_backends = [SearchFilter]
@@ -38,7 +38,7 @@ class PostListDetailfilter(generics.ListAPIView):
 
 
 class CreatePost(APIView):
-    permission_classes = [AllowAny]
+    permission_classes = [IsAuthenticated]
     serializer_class = ArtSerialiser
     def post(self, request, format=None):
         serializer = ArtSerialiser(data=request.data)
@@ -50,13 +50,13 @@ class CreatePost(APIView):
 
 
 class AdminPostDetail(generics.RetrieveAPIView):
-    permission_classes = [AllowAny]
+    permission_classes = [IsAuthenticated]
     queryset = Article.objects.all()
     serializer_class = ArtSerialiser
 
 
 class EditPost(generics.UpdateAPIView):
-    permission_classes = [AllowAny]
+    permission_classes = [IsAuthenticated]
     serializer_class = ArtSerialiser
     queryset = Article.objects.all()
 
@@ -64,7 +64,7 @@ class EditPost(generics.UpdateAPIView):
 
 
 class DeletePost(generics.RetrieveDestroyAPIView):
-    permission_classes = [AllowAny]
+    permission_classes = [IsAuthenticated]
     serializer_class = ArtSerialiser
     queryset = Article.objects.all()
 
