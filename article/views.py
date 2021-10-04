@@ -11,7 +11,7 @@ from rest_framework.filters import SearchFilter
 
 
 class ArticleList(generics.ListAPIView):
-    permission_classes = [AllowAny]
+    permission_classes = [IsAuthenticated]
     serializer_class = ArtSerialiser
     queryset = Article.objects.all()
 
