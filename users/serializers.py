@@ -16,7 +16,7 @@ class CustomUserSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = myUser
-        fields = ('user_name', 'email', 'password')
+        fields = ('user_name', 'email', 'password',)
         extra_kwargs = {'password': {'write_only': True}}
 
     def create(self, validated_data):
@@ -29,8 +29,8 @@ class CustomUserSerializer(serializers.ModelSerializer):
         return instance
 
 class LoginSerializer(serializers.Serializer):
-    username = serializers.CharField()
-    password = serializers.CharField()
+    username = serializers.CharField(required=True)
+    password = serializers.CharField(required=True)
 
     def validate(self, data):
         username = data.get("username", "")

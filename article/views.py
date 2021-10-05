@@ -1,10 +1,12 @@
 from django.shortcuts import get_object_or_404
+from rest_framework.authentication import TokenAuthentication
+
 from .models import Article
 from .serializers import ArtSerialiser
 from rest_framework import generics, status
 from rest_framework.response import Response
 from rest_framework.views import APIView
-from rest_framework.permissions import AllowAny, SAFE_METHODS, BasePermission, IsAuthenticated
+from rest_framework.permissions import  AllowAny, SAFE_METHODS, BasePermission, IsAuthenticated
 from rest_framework.filters import SearchFilter
 
 
@@ -17,7 +19,7 @@ class ArticleList(generics.ListAPIView):
 
 
 class ArticleDetail(generics.RetrieveAPIView):
-    permission_classes = [AllowAny]
+    permission_classes = [IsAuthenticated]
     serializer_class = ArtSerialiser
 
     def get_object(self, queryset=None, **kwargs):

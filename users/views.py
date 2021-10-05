@@ -3,7 +3,6 @@ from rest_framework.generics import GenericAPIView
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from .serializers import CustomUserSerializer, LoginSerializer
-# from rest_framework_simplejwt.tokens import RefreshToken
 from rest_framework.permissions import AllowAny
 from django.contrib.auth import login as django_login, logout as django_logout
 from rest_framework.authtoken.models import Token
@@ -25,14 +24,13 @@ class CustomUserCreate(APIView):
 
 
 class LoginView(GenericAPIView):
-    serializer_class = LoginSerializer
 
     def post(self, request):
         serializer = LoginSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
         user = serializer.validated_data["user"]
         django_login(request, user)
-        token, created = Token.objects.get_or_create(user=user)
+        token = Token.objects.get(user=user)
         return Response({"token": token.key}, status=200)
 
 
