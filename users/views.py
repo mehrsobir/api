@@ -9,10 +9,9 @@ from rest_framework.authtoken.models import Token
 from rest_framework.authentication import TokenAuthentication
 
 
-
 class CustomUserCreate(APIView):
     permission_classes = [AllowAny]
-    # serializer_class = CustomUserSerializer
+    serializer_class = CustomUserSerializer
     def post(self, request, format='json'):
         serializer = CustomUserSerializer(data=request.data)
         if serializer.is_valid():
@@ -24,6 +23,8 @@ class CustomUserCreate(APIView):
 
 
 class LoginView(GenericAPIView):
+    permission_classes = [AllowAny]
+    serializer_class = CustomUserSerializer
 
     def post(self, request):
         serializer = LoginSerializer(data=request.data)

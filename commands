@@ -1,3 +1,29 @@
+npm install --save django-react-csrftoken
+
+import React from 'react';
+import DjangoCSRFToken from 'django-react-csrftoken'
+
+class MyLoginForm extends React.Component {
+  render(){
+    return (
+      <div className="container">
+          <form>
+            <DjangoCSRFToken/>
+            // email
+            // password
+            // submit button
+          </form>
+      </div>
+    )
+  }
+}
+from django.views.decorators.csrf import ensure_csrf_cookie
+
+@ensure_csrf_cookie
+def register_view(request):
+
+
+
 pip install django
 pip install djangorestframework
 pip install django-ckeditor
