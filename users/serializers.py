@@ -7,17 +7,11 @@ from users.models import User as myUser
 
 
 class CustomUserSerializer(serializers.ModelSerializer):
-    """
-    Currently unused in preference of the below.
-    """
-    email = serializers.EmailField(required=True)
-    user_name = serializers.CharField(required=True)
-    password = serializers.CharField(min_length=8, write_only=True)
 
     class Meta:
         model = myUser
         fields = ('user_name', 'email', 'password',)
-        extra_kwargs = {'password': {'write_only': True}}
+        # extra_kwargs = {'password1': {'write_only': True}}
 
     def create(self, validated_data):
         password = validated_data.pop('password', None)

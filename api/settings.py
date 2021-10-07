@@ -41,8 +41,8 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
-    'django.contrib.sessions.middleware.SessionMiddleware',
     'corsheaders.middleware.CorsMiddleware',
+    'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -157,10 +157,10 @@ REST_FRAMEWORK = {
 
 # Custom user model
 AUTH_USER_MODEL = "users.User"
-
+CORS_ORIGIN_WHITELIST = ['http://localhost:3000']
 
 CSRF_COOKIE_NAME = "csrftoken"
-# CSRF_COOKIE_HTTPONLY = False
+CSRF_COOKIE_HTTPONLY = True
 #
-# CORS_EXPOSE_HEADERS = ["Content-Type", "X-CSRFToken"]
-# CORS_ALLOW_CREDENTIALS = True
+CORS_EXPOSE_HEADERS = ["Content-Type", "X-CSRFToken"]
+CORS_ALLOW_CREDENTIALS = True

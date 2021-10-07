@@ -19,9 +19,9 @@ class Category(models.Model):
 
 
 class Article(models.Model):
-    class PostObjects(models.Manager):
-        def get_queryset(self):
-            return super().get_queryset().filter(status='published')
+    # class PostObjects(models.Manager):
+    #     def get_queryset(self):
+    #         return super().get_queryset().filter(status='published')
 
     options = (
         ('draft', 'Draft'),
@@ -42,7 +42,7 @@ class Article(models.Model):
     excepted = models.BooleanField(default=False)
     views = models.IntegerField(default=0)
     objects = models.Manager()  # default manager
-    postobjects = PostObjects()  # custom manager
+    # postobjects = PostObjects()  # custom manager
 
     class Meta:
         ordering = ['-pubdate']

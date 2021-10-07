@@ -1,5 +1,5 @@
 from django.urls import path, include
-from .views import ArticleList, ArticleDetail, PostListDetailfilter, CreatePost, AdminPostDetail, EditPost, DeletePost
+from .views import csrf, ping, ArticleList, ArticleDetail, PostListDetailfilter, CreatePost, AdminPostDetail, EditPost, DeletePost
 
 # from rest_framework.routers import DefaultRouter
 
@@ -19,4 +19,6 @@ urlpatterns = [
     path('admi/edit/postdetail/<int:pk>/', AdminPostDetail.as_view(), name='admindetailpost'),
     path('admi/edit/<int:pk>/', EditPost.as_view(), name='editpost'),
     path('admi/delete/<int:pk>/', DeletePost.as_view(), name='deletepost'),
+    path('csrf/', csrf),
+    path('ping/', ping),
 ]

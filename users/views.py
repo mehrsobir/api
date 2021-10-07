@@ -12,19 +12,20 @@ from rest_framework.authentication import TokenAuthentication
 
 class CustomUserCreate(APIView):
     permission_classes = [AllowAny]
-    # serializer_class = CustomUserSerializer
     def post(self, request, format='json'):
-        serializer = CustomUserSerializer(data=request.data)
-        if serializer.is_valid():
-            user = serializer.save()
-            if user:
-                json = serializer.data
-                return Response(json, status=status.HTTP_201_CREATED)
+        data = request.data
+        if data["password1"] == data["password"]:
+            serializer = CustomUserSerializer(data=data)
+            if serializer.is_valid():
+                user = serializer.save()
+                if user:
+                    json = serializer.data
+                    return Response(json, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
 class LoginView(GenericAPIView):
-
+    serializer_class = LoginSerializer
     def post(self, request):
         serializer = LoginSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)

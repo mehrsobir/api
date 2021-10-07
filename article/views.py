@@ -1,15 +1,21 @@
 from django.shortcuts import get_object_or_404
-from rest_framework.authentication import TokenAuthentication
-
 from .models import Article
 from .serializers import ArtSerialiser
 from rest_framework import generics, status
 from rest_framework.response import Response
 from rest_framework.views import APIView
-from rest_framework.permissions import  AllowAny, SAFE_METHODS, BasePermission, IsAuthenticated
+from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.filters import SearchFilter
+from django.http import JsonResponse
+from django.middleware.csrf import get_token
 
 
+def csrf(request):
+    return JsonResponse({'csrfToken': get_token(request)})
+
+
+def ping(request):
+    return JsonResponse({'result': 'OK'})
 
 
 class ArticleList(generics.ListAPIView):
@@ -39,9 +45,10 @@ class PostListDetailfilter(generics.ListAPIView):
 
 
 
-class CreatePost(APIView):
+class CreatePost(generics.GenericAPIView):
     permission_classes = [IsAuthenticated]
     serializer_class = ArtSerialiser
+
     def post(self, request, format=None):
         serializer = ArtSerialiser(data=request.data)
         if serializer.is_valid():
