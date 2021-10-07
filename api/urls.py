@@ -12,7 +12,7 @@ urlpatterns = [
 
     path('admin/', admin.site.urls),
     path('', include('article.urls', namespace='article')),
-    path('user/', include('users.urls', namespace='users')),
+    path('user/', include('users.urls', namespace='user')),
     # path('api-auth/', include('rest_framework.urls', namespace='rest_framework')),
 
     path('api_token/', obtain_auth_token, name="auth_token"),
