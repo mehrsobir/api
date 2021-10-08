@@ -1,6 +1,6 @@
 from django.urls import path, include
-from .views import csrf, ping, ArticleList, ArticleDetail, PostListDetailfilter, CreatePost, AdminPostDetail, EditPost, DeletePost
-
+from .views import csrf, ArticleList, ArticleDetail, PostListDetailfilter, CreatePost, AdminPostDetail, EditPost, DeletePost
+from django.views.decorators.csrf import csrf_exempt
 # from rest_framework.routers import DefaultRouter
 
 app_name = 'api'
@@ -20,5 +20,4 @@ urlpatterns = [
     path('admi/edit/<int:pk>/', EditPost.as_view(), name='editpost'),
     path('admi/delete/<int:pk>/', DeletePost.as_view(), name='deletepost'),
     path('csrf/', csrf),
-    path('ping/', ping),
 ]

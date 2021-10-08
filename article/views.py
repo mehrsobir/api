@@ -14,10 +14,6 @@ def csrf(request):
     return JsonResponse({'csrfToken': get_token(request)})
 
 
-def ping(request):
-    return JsonResponse({'result': 'OK'})
-
-
 class ArticleList(generics.ListAPIView):
     permission_classes = [IsAuthenticated]
     serializer_class = ArtSerialiser

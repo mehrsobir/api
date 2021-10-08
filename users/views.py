@@ -25,6 +25,7 @@ class CustomUserCreate(APIView):
 
 
 class LoginView(GenericAPIView):
+    permission_classes = [AllowAny]
     serializer_class = LoginSerializer
     def post(self, request):
         serializer = LoginSerializer(data=request.data)
