@@ -7,7 +7,7 @@ from rest_framework.permissions import AllowAny
 from django.contrib.auth import login as django_login, logout as django_logout
 from rest_framework.authtoken.models import Token
 from rest_framework.authentication import TokenAuthentication
-
+from django.http import JsonResponse
 
 
 class CustomUserCreate(APIView):
@@ -33,7 +33,7 @@ class LoginView(GenericAPIView):
         user = serializer.validated_data["user"]
         django_login(request, user)
         token = Token.objects.get(user=user)
-        return Response({"token": token.key}, status=200)
+        return Response({"token": token.key, "user_id": user.pk, 'user_name': user.user_name}, status=200)
 
 
 class LogoutView(APIView):

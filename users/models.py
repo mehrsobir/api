@@ -53,7 +53,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     REQUIRED_FIELDS = ['user_name']
 
     def __str__(self):
-        return self.user_name
+        return self.email
 
 
 @receiver(post_save, sender=settings.AUTH_USER_MODEL)

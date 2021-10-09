@@ -3,15 +3,8 @@ from .models import Article
 from .serializers import ArtSerialiser
 from rest_framework import generics, status
 from rest_framework.response import Response
-from rest_framework.views import APIView
 from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.filters import SearchFilter
-from django.http import JsonResponse
-from django.middleware.csrf import get_token
-
-
-def csrf(request):
-    return JsonResponse({'csrfToken': get_token(request)})
 
 
 class ArticleList(generics.ListAPIView):
