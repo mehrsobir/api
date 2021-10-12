@@ -33,7 +33,8 @@ class LoginView(GenericAPIView):
         user = serializer.validated_data["user"]
         django_login(request, user)
         token = Token.objects.get(user=user)
-        return Response({"token": token.key, "user_id": user.pk, 'user_name': user.user_name}, status=200)
+        us = {"name": user.user_name, "pk": user.pk}
+        return Response({"token": token.key, "user": us}, status=200)
 
 
 class LogoutView(APIView):
