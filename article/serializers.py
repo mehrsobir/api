@@ -25,3 +25,15 @@ class ArtSerialiser(serializers.ModelSerializer):
         type = article.category.category
         return type
 
+class TypeS(serializers.ModelSerializer):
+    class Meta:
+        model = Type
+        fields = ('id', 'type')
+
+
+class CatS(serializers.ModelSerializer):
+    class Meta:
+        model = Category
+        fields = ('id', 'category')
+
+

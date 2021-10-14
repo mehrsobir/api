@@ -1,10 +1,12 @@
 from django.shortcuts import get_object_or_404
-from .models import Article
-from .serializers import ArtSerialiser
+from .models import Article, Type, Category
+from .serializers import ArtSerialiser, TypeS, CatS
 from rest_framework import generics, status
 from rest_framework.response import Response
 from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.filters import SearchFilter
+from django.forms.models import model_to_dict
+from django.http import JsonResponse
 
 
 class ArticleList(generics.ListAPIView):
@@ -66,4 +68,16 @@ class DeletePost(generics.RetrieveDestroyAPIView):
     serializer_class = ArtSerialiser
     queryset = Article.objects.all()
 
-    
+
+class getType(generics.ListAPIView):
+    permission_classes = [AllowAny]
+    serializer_class = TypeS
+    queryset = Type.objects.all()
+
+
+class getCat(generics.ListAPIView):
+    permission_classes = [AllowAny]
+    serializer_class = CatS
+    queryset = Category.objects.all()
+
+
