@@ -28,12 +28,12 @@ class ArtSerialiser(serializers.ModelSerializer):
 class TypeS(serializers.ModelSerializer):
     class Meta:
         model = Type
-        fields = ('id', 'type')
+        fields = ('id', 'type',)
 
 
 class CatS(serializers.ModelSerializer):
     class Meta:
         model = Category
-        fields = ('id', 'category')
+        fields = ('id', 'category',)
 
 
